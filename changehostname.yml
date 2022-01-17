@@ -1,0 +1,5 @@
+---
+- name: Change hostname 
+  hosts: master-01
+   hostname:
+    name: master-01

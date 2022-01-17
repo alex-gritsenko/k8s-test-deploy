@@ -1,0 +1,13 @@
+---
+all:
+  children:
+    ALL_k8s:
+      children:
+        k8s_master:
+          hosts:
+            master-[01:03].local.k8s
+        k8s_worker:
+          hosts:
+            worker-[01:03].local.k8s
+
+              

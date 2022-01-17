@@ -1,0 +1,32 @@
+---
+- hosts: ALL_k8s
+  become: yes
+  tasks:
+    - apt:
+        name: sudo
+        update_cache: yes
+    - group:
+        name: sudo
+        state: present
+    - user:
+        name: ansible
+        groups: sudo
+        append: yes
+        state: present
+    - lineinfile:
+        path: /etc/sudoers
+        state: present
+        line: 'ansible ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
+#    - authorized_key:
+#        user: ansible
+#        state: present
+#        key: '{{ item }}'
+#      with_file:
+#        - ~/.ssh/id_rsa.pub
+    - lineinfile:
+        path: /etc/ssh/sshd_config
+        state: present
+        regexp: '^PasswordAuthentication '
+        insertafter: '^#PasswordAuthentication '
+        line: 'PasswordAuthentication No'

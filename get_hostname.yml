@@ -1,0 +1,15 @@
+---
+  - hosts: ALL_k8s
+    become: yes
+    tasks:
+      - file:
+          path: /etc/dhcp/dhclient-exit-hooks.d/
+          state: directory
+      - file:
+          path: /etc/dhcp/dhclient-exit-hooks.d/sethostname
+          state: touch
+      - lineinfile:
+          path: /etc/dhcp/dhclient-exit-hooks.d/sethostname
+          state: present
+          line: 'hostname $new_host_name'
+

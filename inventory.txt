@@ -1,0 +1,16 @@
+[ansible_server]
+  k8s-arm		ansible_host=10.3.1.17
+
+[k8s-master]
+  master-01    ansible_host=10.3.1.121
+  master-02    ansible_host=10.3.1.121
+  master-03    ansible_host=10.3.1.123
+[k8s-worker]
+  worker-01    ansible_host=10.3.1.131
+  worker-02    ansible_host=10.3.1.132
+  worker-03    ansible_host=10.3.1.133
+
+[ALL_k8s:children]
+  k8s-master
+  k8s-worker
+  k8s-ingress
